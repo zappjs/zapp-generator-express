@@ -1,0 +1,7 @@
+filename: src/api.ts
+engine: handlebars
+template: api
+mapping:
+  domain: /app/domain
+  operations: /operations
+  paths: /paths

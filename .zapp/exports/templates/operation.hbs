@@ -1,0 +1,11 @@
+{{#if imports}}
+{{#each imports}}
+{{#import this ../allImports '../..'}}
+import * as {{{name}}} from '{{{module}}}';
+{{/import}}
+{{/each}}
+{{/if}}
+
+export default async function addUser(data: any) {
+  {{{code handler 1}}}
+}

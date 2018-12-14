@@ -1,0 +1,11 @@
+type: object
+additionalProperties:
+  type: object
+  properties:
+    imports:
+      type: array
+      items:
+        type: string
+    handler:
+      type: code
+      mode: javascript

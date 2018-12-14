@@ -1,0 +1,75 @@
+// import modules
+import * as bodyParser from 'body-parser';
+import * as cookieParser from 'cookie-parser';
+import * as express from 'express';
+import * as session from 'express-session';
+
+// get port
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+
+// operations
+{{#each operations}}
+import {{{case @key 'camel'}}} from './operations/{{{case @key 'camel'}}}';
+{{/each}}
+
+// handler
+function handler(fn: Function) {
+  return async (req: any, res: any, next: Function) => {
+    try {
+      const result = await fn(req, res, next);
+      res.status(result.status || 200)
+        .set(result.headers)
+        .send(result.body);
+    } catch (error) {
+      console.log(JSON.stringify(error, null, 2));
+      res.status(500).send({
+        message: 'Internal server error'
+      });
+    }
+  };
+}
+
+// create app
+const app = express();
+
+// app configurations
+app.use(cookieParser());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(session({
+  cookie: {
+    domain: `.{{{domain}}}`
+  },
+  secret: 'DNyR2zbZ33qqpkdOcaS9L7W6n8MIgZaK',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// set cors
+app.use((req, res, next) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  res.setHeader('Access-Control-Allow-Origin', req.get('origin') || '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,PATCH,PUT,DELETE,POST,OPTIONS');
+  next();
+});
+app.options('*', (req, res) => res.send({}));
+
+// app paths
+{{#each paths}}
+{{#each this}}
+app.{{{@key}}}('{{{@../key}}}', handler({{{operationId}}}));
+{{/each}}
+{{/each}}
+
+// app 404
+app.use((req, res, next) => { // eslint-disable-line no-unused-vars
+  res.status(404)
+    .send({
+      message: 'The requested resource does not exist.'
+    });
+});
+
+// start app
+app.listen(port, () => console.log('listening...'));

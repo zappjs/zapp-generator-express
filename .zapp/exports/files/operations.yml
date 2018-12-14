@@ -1,0 +1,13 @@
+template: operation
+engine: handlebars
+filename:
+  template: 'src/operations/{{{name}}}.ts'
+  engine: handlebars
+  mapping:
+    name: '@key'
+iterator: operations
+mapping:
+  allImports: /imports
+  name: '@key'
+  handler: ./handler
+  imports: ./imports

@@ -1,0 +1,4 @@
+build: NODE_ENV=development tsc --outDir build
+build:dev: NODE_ENV=production tsc --outDir build
+start:dev: NODE_ENV=development nodemon build/api.js
+watch:dev: NODE_ENV=development tsc --outDir build -w

@@ -1,0 +1,30 @@
+type: object
+additionalProperties:
+  type: object
+  properties:
+    get:
+      type: object
+      properties:
+        description:
+          type: string
+        operationId:
+          type: string
+        parameters:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              in:
+                type: string
+              description:
+                type: string
+              required:
+                type: boolean
+              schema:
+                type: object
+    delete: /paths/additionalProperties/properties/get
+    patch: /paths/additionalProperties/properties/get
+    post: /paths/additionalProperties/properties/get
+    put: /paths/additionalProperties/properties/get

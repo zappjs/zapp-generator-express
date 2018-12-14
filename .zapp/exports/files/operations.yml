@@ -11,3 +11,5 @@ mapping:
   name: '@key'
   handler: ./handler
   imports: ./imports
+  request: ./request
+  response: ./response

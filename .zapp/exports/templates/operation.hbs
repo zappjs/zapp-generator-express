@@ -6,6 +6,32 @@ import * as {{{name}}} from '{{{module}}}';
 {{/each}}
 {{/if}}
 
-export default async function addUser(data: any) {
+export default async function {{{name}}}({
+  {{#each request}}
+  {{{@key}}}{{#unless @last}},{{/unless}}
+  {{/each}}
+}: {
+  {{#if request.body}}
+  body: {
+    {{#each request.body}}
+    {{{@key}}}: {{#if type}}{{{type}}}{{else}}any{{/if}};
+    {{/each}}
+  };
+  {{/if}}
+  {{#if request.params}}
+  params: {
+    {{#each request.params}}
+    {{{@key}}}: {{{type}}};
+    {{/each}}
+  };
+  {{/if}}
+  {{#if request.query}}
+  query: {
+    {{#each request.query}}
+    {{{@key}}}: {{#if type}}{{{type}}}{{else}}any{{/if}};
+    {{/each}}
+  };
+  {{/if}}
+}) {
   {{{code handler 1}}}
 }

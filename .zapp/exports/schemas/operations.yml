@@ -9,3 +9,39 @@ additionalProperties:
     handler:
       type: code
       mode: javascript
+    request:
+      type: object
+      properties:
+        body:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              type:
+                enum:
+                  - boolean
+                  - number
+                  - string
+                type: string
+        params:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              type:
+                enum:
+                  - boolean
+                  - number
+                  - string
+                type: string
+        query:
+          type: object
+          additionalProperties:
+            type: object
+            properties:
+              type:
+                enum:
+                  - boolean
+                  - number
+                  - string
+                type: string

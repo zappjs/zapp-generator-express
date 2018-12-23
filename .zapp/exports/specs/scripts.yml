@@ -1,4 +1,4 @@
 build: NODE_ENV=production tsc
 build:dev: NODE_ENV=development tsc
-start:dev: NODE_ENV=development nodemon build/api.js
+start:dev: NODE_ENV=development nodemon dist/api.js
 watch:dev: NODE_ENV=development tsc -w
